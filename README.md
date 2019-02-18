@@ -96,6 +96,25 @@ func run(ctx *cli.Context) error {
 }
 ```
 
+As you can see in order to match the flag with a given secret you should set
+the `vault_key` in the meta data map.
+
+Let's assume that we have the following JSON in your KV config:
+
+```json
+{
+  "username": "root",
+  "password": "swordfish"
+}
+```
+
+If you want to populate a flag's value with the password field you should use
+the following syntax for your `vault_key`:
+
+```
+/app/service-api/kv/config::password
+```
+
 ## Contributing
 
 We are welcome to any contributions. Just fork the
