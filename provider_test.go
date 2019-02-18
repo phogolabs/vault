@@ -12,9 +12,9 @@ import (
 	"github.com/phogolabs/vault/fake"
 )
 
-var _ = Describe("Parser", func() {
+var _ = Describe("Provider", func() {
 	var (
-		provider *vault.Parser
+		provider *vault.Provider
 		server   *Server
 		ctx      *cli.Context
 		handlers []http.HandlerFunc
@@ -27,7 +27,7 @@ var _ = Describe("Parser", func() {
 			newGetKVHandler(),
 		}
 
-		provider = &vault.Parser{}
+		provider = &vault.Provider{}
 	})
 
 	JustBeforeEach(func() {
@@ -66,11 +66,13 @@ var _ = Describe("Parser", func() {
 	})
 
 	AfterEach(func() {
+		Expect(provider.Rollback(ctx)).To(Succeed())
+
 		server.Close()
 	})
 
 	It("parses the flags successfully", func() {
-		Expect(provider.Parse(ctx)).To(Succeed())
+		Expect(provider.Provide(ctx)).To(Succeed())
 		Expect(ctx.String("password")).To(Equal("swordfish"))
 	})
 
@@ -107,7 +109,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("parses the flags successfully", func() {
-			Expect(provider.Parse(ctx)).To(Succeed())
+			Expect(provider.Provide(ctx)).To(Succeed())
 			Expect(ctx.String("password")).To(Equal("swordfish"))
 		})
 	})
@@ -126,7 +128,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("returns an error", func() {
-			Expect(provider.Parse(ctx).Error()).To(ContainSubstring("Code: 500"))
+			Expect(provider.Provide(ctx).Error()).To(ContainSubstring("Code: 500"))
 		})
 	})
 
@@ -145,7 +147,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("returns an error", func() {
-			Expect(provider.Parse(ctx).Error()).To(ContainSubstring("Code: 500"))
+			Expect(provider.Provide(ctx).Error()).To(ContainSubstring("Code: 500"))
 		})
 	})
 
@@ -161,7 +163,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("returns an error", func() {
-			Expect(provider.Parse(ctx)).To(MatchError("strconv.ParseInt: parsing \"swordfish\": invalid syntax"))
+			Expect(provider.Provide(ctx)).To(MatchError("strconv.ParseInt: parsing \"swordfish\": invalid syntax"))
 		})
 	})
 
@@ -180,7 +182,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("parses the flags successfully", func() {
-			Expect(provider.Parse(ctx)).To(Succeed())
+			Expect(provider.Provide(ctx)).To(Succeed())
 			Expect(ctx.String("password")).To(Equal("swordfish"))
 		})
 	})
@@ -203,7 +205,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("parses the flags successfully", func() {
-			Expect(provider.Parse(ctx)).To(Succeed())
+			Expect(provider.Provide(ctx)).To(Succeed())
 			Expect(provider.Fetcher).To(BeNil())
 			Expect(ctx.String("password")).To(BeEmpty())
 		})
@@ -231,7 +233,7 @@ var _ = Describe("Parser", func() {
 		})
 
 		It("returns an error", func() {
-			Expect(provider.Parse(ctx)).To(MatchError("parse ://address: missing protocol scheme"))
+			Expect(provider.Provide(ctx)).To(MatchError("parse ://address: missing protocol scheme"))
 		})
 	})
 })

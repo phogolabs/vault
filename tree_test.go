@@ -25,6 +25,11 @@ var _ = Describe("RepositoryTree", func() {
 		}
 	})
 
+	AfterEach(func() {
+		tree.Stop()
+		Expect(repository.StopCallCount()).To(Equal(1))
+	})
+
 	fetch := func(config interface{}) map[string]interface{} {
 		return map[string]interface{}{
 			"app": map[string]interface{}{

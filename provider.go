@@ -11,17 +11,22 @@ import (
 type Fetcher interface {
 	// Secret returns the underlying secret
 	Secret(path string) (interface{}, error)
+	// Stop stops the fetcher
+	Stop()
 }
 
-var _ cli.Parser = &Parser{}
+var (
+	_ cli.Provider    = &Provider{}
+	_ cli.Transaction = &Provider{}
+)
 
-// Parser is a parser that populates flags from Hashi Corp Vault
-type Parser struct {
+// Provider is a parser that populates flags from Hashi Corp Vault
+type Provider struct {
 	Fetcher Fetcher
 }
 
-// Parse parses the args
-func (m *Parser) Parse(ctx *cli.Context) (err error) {
+// Provide parses the args
+func (m *Provider) Provide(ctx *cli.Context) (err error) {
 	if err = m.init(ctx); err != nil {
 		return err
 	}
@@ -54,7 +59,7 @@ func (m *Parser) Parse(ctx *cli.Context) (err error) {
 	return nil
 }
 
-func (m *Parser) init(ctx *cli.Context) error {
+func (m *Provider) init(ctx *cli.Context) error {
 	if m.Fetcher != nil {
 		return nil
 	}
@@ -91,4 +96,12 @@ func (m *Parser) init(ctx *cli.Context) error {
 	)
 
 	return client.Auth(path, secret)
+}
+
+// Rollback stops the provider
+func (m *Provider) Rollback(ctx *cli.Context) error {
+	if m.Fetcher != nil {
+		m.Fetcher.Stop()
+	}
+	return nil
 }

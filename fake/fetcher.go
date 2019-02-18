@@ -21,6 +21,9 @@ type Fetcher struct {
 		result1 interface{}
 		result2 error
 	}
+	StopStub         func()
+	stopMutex        sync.RWMutex
+	stopArgsForCall  []struct{}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
@@ -76,11 +79,29 @@ func (fake *Fetcher) SecretReturnsOnCall(i int, result1 interface{}, result2 err
 	}{result1, result2}
 }
 
+func (fake *Fetcher) Stop() {
+	fake.stopMutex.Lock()
+	fake.stopArgsForCall = append(fake.stopArgsForCall, struct{}{})
+	fake.recordInvocation("Stop", []interface{}{})
+	fake.stopMutex.Unlock()
+	if fake.StopStub != nil {
+		fake.StopStub()
+	}
+}
+
+func (fake *Fetcher) StopCallCount() int {
+	fake.stopMutex.RLock()
+	defer fake.stopMutex.RUnlock()
+	return len(fake.stopArgsForCall)
+}
+
 func (fake *Fetcher) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
 	fake.secretMutex.RLock()
 	defer fake.secretMutex.RUnlock()
+	fake.stopMutex.RLock()
+	defer fake.stopMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

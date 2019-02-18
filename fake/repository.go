@@ -21,6 +21,9 @@ type Repository struct {
 		result1 map[string]interface{}
 		result2 error
 	}
+	StopStub         func()
+	stopMutex        sync.RWMutex
+	stopArgsForCall  []struct{}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
@@ -76,11 +79,29 @@ func (fake *Repository) SecretReturnsOnCall(i int, result1 map[string]interface{
 	}{result1, result2}
 }
 
+func (fake *Repository) Stop() {
+	fake.stopMutex.Lock()
+	fake.stopArgsForCall = append(fake.stopArgsForCall, struct{}{})
+	fake.recordInvocation("Stop", []interface{}{})
+	fake.stopMutex.Unlock()
+	if fake.StopStub != nil {
+		fake.StopStub()
+	}
+}
+
+func (fake *Repository) StopCallCount() int {
+	fake.stopMutex.RLock()
+	defer fake.stopMutex.RUnlock()
+	return len(fake.stopArgsForCall)
+}
+
 func (fake *Repository) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
 	fake.secretMutex.RLock()
 	defer fake.secretMutex.RUnlock()
+	fake.stopMutex.RLock()
+	defer fake.stopMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

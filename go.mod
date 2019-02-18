@@ -83,7 +83,7 @@ require (
 	github.com/ory-am/common v0.4.0 // indirect
 	github.com/ory/dockertest v3.3.4+incompatible // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
-	github.com/phogolabs/cli v0.0.0-20190218080842-22de71587ecb
+	github.com/phogolabs/cli v0.0.0-20190218093303-268eec57b75f
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/pquerna/otp v1.1.0 // indirect

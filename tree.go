@@ -11,6 +11,8 @@ import (
 type Repository interface {
 	// Secret provides the secret from the backend
 	Secret(path string) (map[string]interface{}, error)
+	// Stop stops the repository
+	Stop()
 }
 
 var _ Fetcher = &RepositoryTree{}
@@ -62,4 +64,9 @@ func (r *RepositoryTree) Secret(path string) (interface{}, error) {
 	}
 
 	return nil, fmt.Errorf("vault: path '%s' not found", path)
+}
+
+// Stop stops the tree
+func (r *RepositoryTree) Stop() {
+	r.Repository.Stop()
 }
