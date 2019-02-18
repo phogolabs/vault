@@ -43,8 +43,8 @@ func main() {
 		UsageText: "prana [global options]",
 		Version:   "1.0-beta-04",
 		Action:    run,
-		Parsers: []cli.Parser{
-			&vault.Parser{},
+		Providers: []cli.Provider{
+			&vault.Provider{},
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
