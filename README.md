@@ -1,13 +1,14 @@
 # vault
 
 [![Documentation][godoc-img]][godoc-url]
+![License][license-img]
 [![Build Status][travis-img]][travis-url]
 [![Coverage][codecov-img]][codecov-url]
 [![Go Report Card][report-img]][report-url]
 
-A package that facilitates working with http://vaultproject.io/ in
-[cli](https://github.com/phogolabs/cli). It increases the security of your
-application by populating a command line arguments for Vault Server.
+A package that facilitates working with http://vaultproject.io/ in context of
+[CLI](https://github.com/phogolabs/cli). It increases the security of Golang
+applications by populating a command line arguments from the vault.
 
 ## Installation
 
@@ -78,7 +79,7 @@ func main() {
 				Usage:  "Aplication's config",
 				EnvVar: "APP_CONFIG",
 				Metadata: map[string]string{
-					"vault_key": "/app/phi_vault_api/kv/v1/config",
+					"vault_key": "/app/service-api/kv/config",
 				},
 			},
 		},
