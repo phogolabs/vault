@@ -43,7 +43,7 @@ var _ = Describe("Provider", func() {
 						Value: server.URL(),
 					},
 					&cli.StringFlag{
-						Name:  "vault-auth-mount",
+						Name:  "vault-auth-mount-path",
 						Value: "kubernetes",
 					},
 					&cli.StringFlag{

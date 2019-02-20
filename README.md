@@ -58,9 +58,9 @@ func main() {
 				EnvVar: "VAULT_ADDR",
 			},
 			&cli.StringFlag{
-				Name:   "vault-auth-mount",
+				Name:   "vault-auth-mount-path",
 				Usage:  "Hashi Corp Vault Auth Mount",
-				EnvVar: "VAULT_AUTH_MOUNT",
+				EnvVar: "VAULT_AUTH_MOUNT_PATH",
 				Value:  "kubernetes",
 			},
 			&cli.StringFlag{

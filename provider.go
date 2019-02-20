@@ -88,7 +88,7 @@ func (m *Provider) init(ctx *cli.Context) error {
 	}
 
 	var (
-		path   = ctx.String("vault-auth-mount")
+		path   = ctx.String("vault-auth-mount-path")
 		secret = map[string]interface{}{
 			"role": ctx.String("vault-auth-role"),
 			"jwt":  ctx.String("vault-auth-kube-jwt"),
