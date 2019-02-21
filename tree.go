@@ -1,7 +1,6 @@
 package vault
 
 import (
-	"fmt"
 	"path/filepath"
 )
 
@@ -15,55 +14,29 @@ type Repository interface {
 	Stop()
 }
 
-var _ Fetcher = &RepositoryTree{}
+var _ Repository = &RepositoryTree{}
 
 // RepositoryTree caches the secrets
 type RepositoryTree struct {
 	Repository Repository
-	Root       map[string]interface{}
+	Root       map[string]map[string]interface{}
 }
 
 // Secret returns value from a tree
-func (r *RepositoryTree) Secret(path string) (interface{}, error) {
-	secret := base(path)
-	parts := split(path)
-	path = filepath.Join(parts...)
+func (r *RepositoryTree) Secret(path string) (map[string]interface{}, error) {
+	path = filepath.Join(split(path)...)
+	node, found := r.Root[path]
 
-	var (
-		err     error
-		current string
-		parent  = r.Root
-	)
+	if !found {
+		var err error
 
-	for _, part := range parts {
-		current = filepath.Join(current, part)
-		node, found := parent[part]
-
-		if !found {
-			if current == secret {
-				if node, err = r.Repository.Secret(secret); err != nil {
-					return nil, err
-				}
-			} else {
-				node = make(map[string]interface{})
-			}
+		if node, err = r.Repository.Secret(path); err != nil {
+			return nil, err
 		}
-
-		parent[part] = node
-
-		if current == path {
-			return node, nil
-		}
-
-		next, ok := node.(map[string]interface{})
-		if !ok {
-			return nil, fmt.Errorf("vault: invalid type '%T' for path '%v'", node, current)
-		}
-
-		parent = next
 	}
 
-	return nil, fmt.Errorf("vault: path '%s' not found", path)
+	r.Root[path] = node
+	return node, nil
 }
 
 // Stop stops the tree

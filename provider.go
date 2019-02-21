@@ -2,18 +2,9 @@ package vault
 
 import (
 	"github.com/hashicorp/vault/api"
+	"github.com/oliveagle/jsonpath"
 	"github.com/phogolabs/cli"
 )
-
-//go:generate counterfeiter -fake-name Fetcher -o ./fake/fetcher.go . Fetcher
-
-// Fetcher fetches secrets
-type Fetcher interface {
-	// Secret returns the underlying secret
-	Secret(path string) (interface{}, error)
-	// Stop stops the fetcher
-	Stop()
-}
 
 var (
 	_ cli.Provider    = &Provider{}
@@ -22,7 +13,7 @@ var (
 
 // Provider is a parser that populates flags from Hashi Corp Vault
 type Provider struct {
-	Fetcher Fetcher
+	Repository Repository
 }
 
 // Provide parses the args
@@ -31,7 +22,7 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 		return err
 	}
 
-	if m.Fetcher == nil {
+	if m.Repository == nil {
 		return nil
 	}
 
@@ -43,12 +34,18 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 	for _, flag := range ctx.Command.Flags {
 		accessor := &cli.FlagAccessor{Flag: flag}
 
-		if path = accessor.MetaKey("vault_key"); path == "" {
+		if path = accessor.MetaKey("vault_path"); path == "" {
 			continue
 		}
 
-		if secret, err = m.Fetcher.Secret(path); err != nil {
+		if secret, err = m.Repository.Secret(path); err != nil {
 			return err
+		}
+
+		if path = accessor.MetaKey("json_path"); path != "" {
+			if secret, err = jsonpath.JsonPathLookup(secret, path); err != nil {
+				return err
+			}
 		}
 
 		if err = accessor.SetValue(secret); err != nil {
@@ -60,7 +57,7 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 }
 
 func (m *Provider) init(ctx *cli.Context) error {
-	if m.Fetcher != nil {
+	if m.Repository != nil {
 		return nil
 	}
 
@@ -77,9 +74,9 @@ func (m *Provider) init(ctx *cli.Context) error {
 		return err
 	}
 
-	m.Fetcher = &RepositoryTree{
+	m.Repository = &RepositoryTree{
 		Repository: client,
-		Root:       make(map[string]interface{}),
+		Root:       make(map[string]map[string]interface{}),
 	}
 
 	if token := ctx.String("vault-token"); token != "" {
@@ -100,8 +97,8 @@ func (m *Provider) init(ctx *cli.Context) error {
 
 // Rollback stops the provider
 func (m *Provider) Rollback(ctx *cli.Context) error {
-	if m.Fetcher != nil {
-		m.Fetcher.Stop()
+	if m.Repository != nil {
+		m.Repository.Stop()
 	}
 	return nil
 }

@@ -57,7 +57,8 @@ var _ = Describe("Provider", func() {
 					&cli.StringFlag{
 						Name: "password",
 						Metadata: map[string]string{
-							"vault_key": "/app/kv/config::password",
+							"vault_path": "/app/kv/config",
+							"json_path":  "$.password",
 						},
 					},
 				},
@@ -100,7 +101,8 @@ var _ = Describe("Provider", func() {
 						&cli.StringFlag{
 							Name: "password",
 							Metadata: map[string]string{
-								"vault_key": "/app/kv/config::password",
+								"vault_path": "/app/kv/config",
+								"json_path":  "$.password",
 							},
 						},
 					},
@@ -157,7 +159,8 @@ var _ = Describe("Provider", func() {
 			flags[len(flags)-1] = &cli.IntFlag{
 				Name: "password",
 				Metadata: map[string]string{
-					"vault_key": "/app/kv/config::password",
+					"vault_path": "/app/kv/config",
+					"json_path":  "$.password",
 				},
 			}
 		})
@@ -167,18 +170,37 @@ var _ = Describe("Provider", func() {
 		})
 	})
 
-	Context("when the fetcher is already initialized", func() {
-		var fetcher *fake.Fetcher
+	Context("when the json path is not valid", func() {
+		JustBeforeEach(func() {
+			flags := ctx.Command.Flags
+			flags[len(flags)-1] = &cli.StringFlag{
+				Name: "password",
+				Metadata: map[string]string{
+					"vault_path": "/app/kv/config",
+					"json_path":  "$.$",
+				},
+			}
+		})
+
+		It("returns an error", func() {
+			Expect(provider.Provide(ctx)).To(MatchError("expression don't support in filter"))
+		})
+	})
+
+	Context("when the repository is already initialized", func() {
+		var repository *fake.Repository
 
 		BeforeEach(func() {
-			fetcher = &fake.Fetcher{}
-			fetcher.SecretReturns("swordfish", nil)
+			repository = &fake.Repository{}
+			repository.SecretReturns(map[string]interface{}{
+				"password": "swordfish",
+			}, nil)
 
-			provider.Fetcher = fetcher
+			provider.Repository = repository
 		})
 
 		AfterEach(func() {
-			provider.Fetcher = nil
+			provider.Repository = nil
 		})
 
 		It("parses the flags successfully", func() {
@@ -196,7 +218,8 @@ var _ = Describe("Provider", func() {
 						&cli.StringFlag{
 							Name: "password",
 							Metadata: map[string]string{
-								"vault_key": "/app/kv/config::password",
+								"vault_path": "/app/kv/config",
+								"json_path":  "$.password",
 							},
 						},
 					},
@@ -206,7 +229,7 @@ var _ = Describe("Provider", func() {
 
 		It("parses the flags successfully", func() {
 			Expect(provider.Provide(ctx)).To(Succeed())
-			Expect(provider.Fetcher).To(BeNil())
+			Expect(provider.Repository).To(BeNil())
 			Expect(ctx.String("password")).To(BeEmpty())
 		})
 	})
@@ -224,7 +247,7 @@ var _ = Describe("Provider", func() {
 						&cli.StringFlag{
 							Name: "password",
 							Metadata: map[string]string{
-								"vault_key": "/app/kv/config::password",
+								"vault_path": "/app/kv/config",
 							},
 						},
 					},

@@ -2,17 +2,10 @@ package vault
 
 import (
 	"path"
-	"path/filepath"
 	"strings"
 
 	"github.com/hashicorp/vault/api"
 )
-
-func base(path string) string {
-	parts := strings.Split(path, "::")
-	parts = split(parts[0])
-	return filepath.Join(parts...)
-}
 
 func split(path string) []string {
 	parts := []string{}
@@ -22,8 +15,7 @@ func split(path string) []string {
 			continue
 		}
 
-		elements := strings.Split(part, "::")
-		parts = append(parts, elements...)
+		parts = append(parts, part)
 	}
 
 	return parts

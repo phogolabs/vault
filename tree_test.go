@@ -21,7 +21,7 @@ var _ = Describe("RepositoryTree", func() {
 
 		tree = &vault.RepositoryTree{
 			Repository: repository,
-			Root:       make(map[string]interface{}),
+			Root:       make(map[string]map[string]interface{}),
 		}
 	})
 
@@ -30,13 +30,9 @@ var _ = Describe("RepositoryTree", func() {
 		Expect(repository.StopCallCount()).To(Equal(1))
 	})
 
-	fetch := func(config interface{}) map[string]interface{} {
-		return map[string]interface{}{
-			"app": map[string]interface{}{
-				"service-api": map[string]interface{}{
-					"config": config,
-				},
-			},
+	fetch := func(config map[string]interface{}) map[string]map[string]interface{} {
+		return map[string]map[string]interface{}{
+			"app/service-api/config": config,
 		}
 	}
 
@@ -73,14 +69,6 @@ var _ = Describe("RepositoryTree", func() {
 		ItReturnsTheSecretSuccessfully(0)
 	})
 
-	Context("when the node does not exists", func() {
-		It("returns an error", func() {
-			secret, err := tree.Secret("")
-			Expect(secret).To(BeNil())
-			Expect(err).To(MatchError("vault: path '' not found"))
-		})
-	})
-
 	Context("when the provider fails", func() {
 		BeforeEach(func() {
 			repository.SecretReturns(nil, fmt.Errorf("oh no!"))
@@ -90,20 +78,7 @@ var _ = Describe("RepositoryTree", func() {
 			secret, err := tree.Secret("/app/service-api/config")
 			Expect(err).To(MatchError("oh no!"))
 			Expect(secret).To(BeNil())
-			Expect(tree.Root).To(HaveKey("app"))
-			Expect(tree.Root["app"]).To(HaveKey("service-api"))
-		})
-	})
-
-	Context("when the path is invalid", func() {
-		BeforeEach(func() {
-			tree.Root = fetch("address")
-		})
-
-		It("returns an error", func() {
-			secret, err := tree.Secret("/app/service-api/config/username")
-			Expect(err).To(MatchError("vault: invalid type 'string' for path 'app/service-api/config'"))
-			Expect(secret).To(BeNil())
+			Expect(tree.Root).NotTo(HaveKey("/app/service-api/config"))
 		})
 	})
 })

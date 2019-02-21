@@ -79,7 +79,7 @@ func main() {
 				Usage:  "Aplication's config",
 				EnvVar: "APP_CONFIG",
 				Metadata: map[string]string{
-					"vault_key": "/app/service-api/kv/config",
+					"vault_path": "/app/service-api/kv/config",
 				},
 			},
 		},
@@ -97,7 +97,7 @@ func run(ctx *cli.Context) error {
 ```
 
 As you can see in order to match the flag with a given secret you should set
-the `vault_key` in the meta data map.
+the `vault_path` in the meta data map.
 
 Let's assume that we have the following JSON in your KV config:
 
@@ -109,10 +109,19 @@ Let's assume that we have the following JSON in your KV config:
 ```
 
 If you want to populate a flag's value with the password field you should use
-the following syntax for your `vault_key`:
+[JSON Path](https://goessner.net/articles/JsonPath/) by setting `json_path`
+key in the flag's metadata:
 
 ```
-/app/service-api/kv/config::password
+&cli.StringFlag{
+	Name:   "config",
+	Usage:  "Aplication's config",
+	EnvVar: "APP_CONFIG",
+	Metadata: map[string]string{
+		"vault_path": "/app/service-api/kv/config",
+		"json_path": "$.password",
+	},
+}
 ```
 
 ## Contributing
