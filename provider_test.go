@@ -56,9 +56,11 @@ var _ = Describe("Provider", func() {
 					},
 					&cli.StringFlag{
 						Name: "password",
+						Converter: &cli.JSONPathConverter{
+							Path: "$.password",
+						},
 						Metadata: map[string]string{
 							"vault_path": "/app/kv/config",
-							"json_path":  "$.password",
 						},
 					},
 				},
@@ -100,9 +102,11 @@ var _ = Describe("Provider", func() {
 						},
 						&cli.StringFlag{
 							Name: "password",
+							Converter: &cli.JSONPathConverter{
+								Path: "$.password",
+							},
 							Metadata: map[string]string{
 								"vault_path": "/app/kv/config",
-								"json_path":  "$.password",
 							},
 						},
 					},
@@ -158,9 +162,11 @@ var _ = Describe("Provider", func() {
 			flags := ctx.Command.Flags
 			flags[len(flags)-1] = &cli.IntFlag{
 				Name: "password",
+				Converter: &cli.JSONPathConverter{
+					Path: "$.password",
+				},
 				Metadata: map[string]string{
 					"vault_path": "/app/kv/config",
-					"json_path":  "$.password",
 				},
 			}
 		})
@@ -175,9 +181,11 @@ var _ = Describe("Provider", func() {
 			flags := ctx.Command.Flags
 			flags[len(flags)-1] = &cli.StringFlag{
 				Name: "password",
+				Converter: &cli.JSONPathConverter{
+					Path: "$.$",
+				},
 				Metadata: map[string]string{
 					"vault_path": "/app/kv/config",
-					"json_path":  "$.$",
 				},
 			}
 		})
@@ -217,9 +225,11 @@ var _ = Describe("Provider", func() {
 					Flags: []cli.Flag{
 						&cli.StringFlag{
 							Name: "password",
+							Converter: &cli.JSONPathConverter{
+								Path: "$.password",
+							},
 							Metadata: map[string]string{
 								"vault_path": "/app/kv/config",
-								"json_path":  "$.password",
 							},
 						},
 					},

@@ -109,17 +109,19 @@ Let's assume that we have the following JSON in your KV config:
 ```
 
 If you want to populate a flag's value with the password field you should use
-[JSON Path](https://goessner.net/articles/JsonPath/) by setting `json_path`
-key in the flag's metadata:
+[JSON Path](https://goessner.net/articles/JsonPath/) by setting the flag's
+converter to `cli.JSONPathConverter`:
 
-```
+```golang
 &cli.StringFlag{
 	Name:   "password",
 	Usage:  "Aplication's password",
 	EnvVar: "APP_PASSWORD",
+	Converter: &cli.JSONPathConverter{
+		Path: "$.password",
+	},
 	Metadata: map[string]string{
 		"vault_path": "/app/service-api/kv/config",
-		"json_path": "$.password",
 	},
 }
 ```
