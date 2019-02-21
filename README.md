@@ -113,7 +113,7 @@ If you want to populate a flag's value with the password field you should use
 converter to `cli.JSONPathConverter`:
 
 ```golang
-&cli.StringFlag{
+flag := &cli.StringFlag{
 	Name:   "password",
 	Usage:  "Aplication's password",
 	EnvVar: "APP_PASSWORD",
