@@ -114,9 +114,9 @@ key in the flag's metadata:
 
 ```
 &cli.StringFlag{
-	Name:   "config",
-	Usage:  "Aplication's config",
-	EnvVar: "APP_CONFIG",
+	Name:   "password",
+	Usage:  "Aplication's password",
+	EnvVar: "APP_PASSWORD",
 	Metadata: map[string]string{
 		"vault_path": "/app/service-api/kv/config",
 		"json_path": "$.password",
