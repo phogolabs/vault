@@ -2,7 +2,6 @@ package vault
 
 import (
 	"github.com/hashicorp/vault/api"
-	"github.com/oliveagle/jsonpath"
 	"github.com/phogolabs/cli"
 )
 
@@ -40,12 +39,6 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 
 		if secret, err = m.Repository.Secret(path); err != nil {
 			return err
-		}
-
-		if path = accessor.MetaKey("json_path"); path != "" {
-			if secret, err = jsonpath.JsonPathLookup(secret, path); err != nil {
-				return err
-			}
 		}
 
 		if err = accessor.SetValue(secret); err != nil {
