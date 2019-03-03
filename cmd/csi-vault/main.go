@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/phogolabs/cli"
+	"github.com/phogolabs/log"
 	"github.com/phogolabs/vault/driver"
 )
 
@@ -59,7 +60,9 @@ func main() {
 		Action:    run,
 	}
 
-	app.Run(os.Args)
+	if err := app.Run(os.Args); err != nil {
+		log.WithError(err).Error("exited")
+	}
 }
 
 func run(ctx *cli.Context) error {

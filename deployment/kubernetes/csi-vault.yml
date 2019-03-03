@@ -1,25 +1,25 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: vault-csi
+  name: csi-vault
 spec:
   selector:
     matchLabels:
-      app: vault-csi
+      app: csi-vault
   template:
     metadata:
       labels:
-        app: vault-csi
+        app: csi-vault
     spec:
       serviceAccountName: csi-driver-registrar
       hostNetwork: true
       containers:
-        - name: driver-registrar
+        - name: csi-driver-registrar
           image: gcr.io/gke-release/csi-driver-registrar:v1.0.1-gke.0
           args:
             - --v=5
-            - --csi-address=/csi/csi.sock
-            - --kubelet-registration-path=/var/lib/kubelet/plugins/vault-csi/vault.sock
+            - --csi-address=/csi/csi-vault.sock
+            - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-vault/csi-vault.sock
           env:
             - name: KUBE_NODE_NAME
               valueFrom:
@@ -32,16 +32,12 @@ spec:
             name: socket-dir
           - mountPath: /registration
             name: registration-dir
-        - name: hostpath
-          image: quay.io/photolabs/vault-csi:v1.0.0
-          args:
-            - "--v=5"
-            - "--endpoint=$(CSI_ENDPOINT)"
-            - "--node-id=$(KUBE_NODE_NAME)"
+        - name: csi-vault
+          image: phogo/csi-vault:latest
           env:
-            - name: CSI_ENDPOINT
-              value: unix:///csi/csi.sock
-            - name: KUBE_NODE_NAME
+            - name: VAULT_CSI_ENDPOINT
+              value: unix:///csi/csi-vault.sock
+            - name: VAULT_CSI_NODE_ID
               valueFrom:
                 fieldRef:
                   apiVersion: v1
@@ -57,7 +53,7 @@ spec:
               name: mountpoint-dir
       volumes:
         - hostPath:
-            path: /var/lib/kubelet/plugins/vault-csi
+            path: /var/lib/kubelet/plugins/csi-vault
             type: DirectoryOrCreate
           name: socket-dir
         - hostPath:

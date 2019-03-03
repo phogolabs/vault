@@ -16,38 +16,12 @@ var _ csi.NodeServer = &Driver{}
 // volume to a staging path. Once mounted, NodePublishVolume will make sure to
 // mount it to the appropriate path
 func (d *Driver) NodeStageVolume(ctx context.Context, r *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
-	spew.Dump(r)
-	if r.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Volume ID must be provided")
-	}
-
-	if r.StagingTargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Staging Target Path must be provided")
-	}
-
-	if r.VolumeCapability == nil {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Volume Capability must be provided")
-	}
-
-	//TODO:
-
-	return &csi.NodeStageVolumeResponse{}, nil
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodeUnstageVolume unstages the volume from the staging path
 func (d *Driver) NodeUnstageVolume(ctx context.Context, r *csi.NodeUnstageVolumeRequest) (*csi.NodeUnstageVolumeResponse, error) {
-	spew.Dump(r)
-	if r.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeUnstageVolume Volume ID must be provided")
-	}
-
-	if r.StagingTargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeUnstageVolume Staging Target Path must be provided")
-	}
-
-	//TODO:
-
-	return &csi.NodeUnstageVolumeResponse{}, nil
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path

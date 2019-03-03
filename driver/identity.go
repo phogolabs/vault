@@ -5,6 +5,8 @@ import (
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/protobuf/ptypes/wrappers"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 const (
@@ -28,17 +30,7 @@ func (d *Driver) GetPluginInfo(ctx context.Context, r *csi.GetPluginInfoRequest)
 
 // GetPluginCapabilities returns available capabilities of the plugin
 func (d *Driver) GetPluginCapabilities(ctx context.Context, r *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
-	return &csi.GetPluginCapabilitiesResponse{
-		Capabilities: []*csi.PluginCapability{
-			&csi.PluginCapability{
-				Type: &csi.PluginCapability_Service_{
-					Service: &csi.PluginCapability_Service{
-						Type: csi.PluginCapability_Service_UNKNOWN,
-					},
-				},
-			},
-		},
-	}, nil
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // Probe returns the health and readiness of the plugin
