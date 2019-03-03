@@ -2,6 +2,9 @@ language: go
 go:
   - 1.11.x
 
+services:
+  - docker
+
 install:
   - export PATH=$PATH:$HOME/gopath/bin
   - export GO111MODULE=on
@@ -10,10 +13,12 @@ install:
   - go get github.com/mattn/goveralls
   - go install github.com/onsi/ginkgo/ginkgo
   - go mod download
+  - go mod vendor
   - go mod verify
 
 script:
   - ginkgo -r -v -covermode=atomic
+  - ./script/docker.sh
 
 after_success:
   - script/cover.sh
