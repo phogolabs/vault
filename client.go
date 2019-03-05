@@ -5,6 +5,7 @@ import (
 
 	"github.com/hashicorp/vault/api"
 	"github.com/mitchellh/mapstructure"
+	"github.com/phogolabs/log"
 )
 
 var _ Repository = &Client{}
@@ -53,7 +54,7 @@ func (c *Client) Auth(method string, config map[string]interface{}) error {
 		return err
 	}
 
-	if err = c.renew(client, secret); err != nil {
+	if err = c.renew(client, "token", secret); err != nil {
 		return err
 	}
 
@@ -112,7 +113,7 @@ func (c *Client) Secret(path string) (map[string]interface{}, error) {
 		return nil, err
 	}
 
-	if err = c.renew(c.client, secret); err != nil {
+	if err = c.renew(c.client, path, secret); err != nil {
 		return nil, err
 	}
 
@@ -128,7 +129,7 @@ func (c *Client) Secret(path string) (map[string]interface{}, error) {
 	return secret.Data, nil
 }
 
-func (c *Client) renew(client *api.Client, secret *api.Secret) error {
+func (c *Client) renew(client *api.Client, key string, secret *api.Secret) error {
 	renewer, err := client.NewRenewer(&api.RenewerInput{
 		Secret: secret,
 	})
@@ -138,16 +139,17 @@ func (c *Client) renew(client *api.Client, secret *api.Secret) error {
 	}
 
 	c.renewers = append(c.renewers, renewer)
+	logger := log.WithField("secret", key)
 
 	go func() {
 		for {
-			// logger.Info("renewing...")
+			logger.Info("renewing")
 
 			select {
 			case _ = <-renewer.RenewCh():
-				// logger.Info("renewed")
+				logger.Info("renewed")
 			case err = <-renewer.DoneCh():
-				// logger.WithError(err).Info("renewing stopped")
+				logger.WithError(err).Info("renewing stopped")
 				break
 			}
 		}
