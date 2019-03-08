@@ -16,17 +16,20 @@ var _ csi.NodeServer = &Driver{}
 // volume to a staging path. Once mounted, NodePublishVolume will make sure to
 // mount it to the appropriate path
 func (d *Driver) NodeStageVolume(ctx context.Context, r *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
+	spew.Dump(r)
 	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodeUnstageVolume unstages the volume from the staging path
 func (d *Driver) NodeUnstageVolume(ctx context.Context, r *csi.NodeUnstageVolumeRequest) (*csi.NodeUnstageVolumeResponse, error) {
+	spew.Dump(r)
 	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (d *Driver) NodePublishVolume(ctx context.Context, r *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
 	spew.Dump(r)
+
 	if r.VolumeId == "" {
 		return nil, status.Error(codes.InvalidArgument, "NodePublishVolume Volume ID must be provided")
 	}
@@ -51,6 +54,7 @@ func (d *Driver) NodePublishVolume(ctx context.Context, r *csi.NodePublishVolume
 // NodeUnpublishVolume unmounts the volume from the target path
 func (d *Driver) NodeUnpublishVolume(ctx context.Context, r *csi.NodeUnpublishVolumeRequest) (*csi.NodeUnpublishVolumeResponse, error) {
 	spew.Dump(r)
+
 	if r.VolumeId == "" {
 		return nil, status.Error(codes.InvalidArgument, "NodeUnpublishVolume Volume ID must be provided")
 	}
@@ -65,7 +69,9 @@ func (d *Driver) NodeUnpublishVolume(ctx context.Context, r *csi.NodeUnpublishVo
 }
 
 // NodeGetCapabilities returns the supported capabilities of the node server
-func (d *Driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabilitiesRequest) (*csi.NodeGetCapabilitiesResponse, error) {
+func (d *Driver) NodeGetCapabilities(ctx context.Context, r *csi.NodeGetCapabilitiesRequest) (*csi.NodeGetCapabilitiesResponse, error) {
+	spew.Dump(r)
+
 	capability := &csi.NodeGetCapabilitiesResponse{
 		Capabilities: []*csi.NodeServiceCapability{
 			&csi.NodeServiceCapability{
@@ -86,6 +92,8 @@ func (d *Driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabi
 // knows where to place the workload. The result of this function will be used
 // by the CO in ControllerPublishVolume.
 func (d *Driver) NodeGetInfo(ctx context.Context, r *csi.NodeGetInfoRequest) (*csi.NodeGetInfoResponse, error) {
+	spew.Dump(r)
+
 	return &csi.NodeGetInfoResponse{
 		NodeId: d.cfg.Node,
 	}, nil
