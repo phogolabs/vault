@@ -43,9 +43,10 @@ var flags = []cli.Flag{
 		EnvVar: "VAULT_CSI_AUTH_ROLE",
 	},
 	&cli.StringFlag{
-		Name:   "vault-auth-kube-jwt",
-		Usage:  "Hashi Corp Vault Kube Jwt",
-		EnvVar: "VAULT_CSI_AUTH_KUBE_TOKEN",
+		Name:     "vault-auth-kube-jwt",
+		Usage:    "Hashi Corp Vault Kube Jwt",
+		EnvVar:   "VAULT_CSI_AUTH_KUBE_TOKEN",
+		FilePath: "/var/run/secrets/kubernetes.io/serviceaccount/token",
 	},
 }
 
