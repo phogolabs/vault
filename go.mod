@@ -90,7 +90,7 @@ require (
 	github.com/ory/dockertest v3.3.4+incompatible // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4
-	github.com/phogolabs/log v0.0.0-20190308164539-fc860488ef8f
+	github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/pquerna/otp v1.1.0 // indirect
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90 // indirect

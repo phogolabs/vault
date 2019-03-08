@@ -493,8 +493,8 @@ github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/9
 github.com/philhofer/fwd v1.0.0/go.mod h1:gk3iGcWd9+svBvR0sR+KPcfE+RNWozjowpeBVG3ZVNU=
 github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4 h1:ZoVtNkz0Zzg4JAOcPn6nf4u+FJYjhK7VXrYYuKn6qAM=
 github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4/go.mod h1:ZRbhCQGy+r/7Eq0M2us6fQmbXknOSvswpam9z4cQZAs=
-github.com/phogolabs/log v0.0.0-20190308164539-fc860488ef8f h1:e2RMBo39YMCYuLu0AYSeOv/PeWjdMfTU8aDCW74E8LQ=
-github.com/phogolabs/log v0.0.0-20190308164539-fc860488ef8f/go.mod h1:apbly8DQXIB1f4l9CgV3jV7Ws/ckf/18RVvz5PyOHac=
+github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8 h1:qjqUR6Iu/ZwXxmXCr9dyNk0yQgdj7EKcrsVPJTnujf0=
+github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8/go.mod h1:apbly8DQXIB1f4l9CgV3jV7Ws/ckf/18RVvz5PyOHac=
 github.com/phogolabs/parcello v0.8.1 h1:olbuFKkvNCyFJEN3SYPuRq6vXLWYI+6iBrGJYKJZXdU=
 github.com/phogolabs/parcello v0.8.1/go.mod h1:/HlY+yKSdyM8MUX9YvwT3+sED9SKXizc5zfuHDh6+to=
 github.com/pierrec/lz4 v2.0.5+incompatible h1:2xWsjqPFWcplujydGg4WmhC/6fZqK42wMM8aXeqhl0I=
