@@ -64,8 +64,6 @@ github.com/asaskevich/govalidator v0.0.0-20180720115003-f9ffefc3facf h1:eg0MeVzs
 github.com/asaskevich/govalidator v0.0.0-20180720115003-f9ffefc3facf/go.mod h1:lB+ZfQJz7igIIfQNfa7Ml4HSf2uFQQRzpGGRXenZAgY=
 github.com/aws/aws-sdk-go v1.15.59/go.mod h1:E3/ieXAlvM0XWO57iftYVDLLvQ824smPP3ATZkfNZeM=
 github.com/aws/aws-sdk-go v1.15.64/go.mod h1:E3/ieXAlvM0XWO57iftYVDLLvQ824smPP3ATZkfNZeM=
-github.com/aws/aws-sdk-go v1.16.36 h1:POeH34ZME++pr7GBGh+ZO6Y5kOwSMQpqp5BGUgooJ6k=
-github.com/aws/aws-sdk-go v1.16.36/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.17.13 h1:MJZwZoDI/UGp/6l0+cfZOQlWCqKmrHTuewhxfd5uQeE=
 github.com/aws/aws-sdk-go v1.17.13/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/benbjohnson/tmpl v1.0.0/go.mod h1:igT620JFIi44B6awvU9IsDhR77IXWtFigTLil/RPdps=
@@ -493,8 +491,8 @@ github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/9
 github.com/philhofer/fwd v1.0.0/go.mod h1:gk3iGcWd9+svBvR0sR+KPcfE+RNWozjowpeBVG3ZVNU=
 github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4 h1:ZoVtNkz0Zzg4JAOcPn6nf4u+FJYjhK7VXrYYuKn6qAM=
 github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4/go.mod h1:ZRbhCQGy+r/7Eq0M2us6fQmbXknOSvswpam9z4cQZAs=
-github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8 h1:qjqUR6Iu/ZwXxmXCr9dyNk0yQgdj7EKcrsVPJTnujf0=
-github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8/go.mod h1:apbly8DQXIB1f4l9CgV3jV7Ws/ckf/18RVvz5PyOHac=
+github.com/phogolabs/log v0.0.0-20190308173906-a79f99cf87c6 h1:R9VH4CBiHH/Fg+Dtz/7+ZuJ+SQZ4qsYhMh7qffYlOo8=
+github.com/phogolabs/log v0.0.0-20190308173906-a79f99cf87c6/go.mod h1:nZaQfelsidFugQ8OdLkfJsxjmJuOzi1aztZLAoNawxo=
 github.com/phogolabs/parcello v0.8.1 h1:olbuFKkvNCyFJEN3SYPuRq6vXLWYI+6iBrGJYKJZXdU=
 github.com/phogolabs/parcello v0.8.1/go.mod h1:/HlY+yKSdyM8MUX9YvwT3+sED9SKXizc5zfuHDh6+to=
 github.com/pierrec/lz4 v2.0.5+incompatible h1:2xWsjqPFWcplujydGg4WmhC/6fZqK42wMM8aXeqhl0I=

@@ -9,7 +9,6 @@ require (
 	github.com/SAP/go-hdb v0.13.2 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20190215071114-40c6a917158d // indirect
 	github.com/araddon/gou v0.0.0-20190110011759-c797efecbb61 // indirect
-	github.com/aws/aws-sdk-go v1.17.13 // indirect
 	github.com/boombuler/barcode v1.0.0 // indirect
 	github.com/briankassouf/jose v0.9.1 // indirect
 	github.com/cenkalti/backoff v2.1.1+incompatible // indirect
@@ -36,7 +35,6 @@ require (
 	github.com/gocql/gocql v0.0.0-20190208221138-c53c3654dc8a // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang/groupcache v0.0.0-20190129154638-5b532d6fd5ef // indirect
-	github.com/golang/protobuf v1.3.0 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
@@ -90,7 +88,7 @@ require (
 	github.com/ory/dockertest v3.3.4+incompatible // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4
-	github.com/phogolabs/log v0.0.0-20190308165227-ea42e073b8e8
+	github.com/phogolabs/log v0.0.0-20190308173906-a79f99cf87c6
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/pquerna/otp v1.1.0 // indirect
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90 // indirect
@@ -105,9 +103,7 @@ require (
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.opencensus.io v0.19.1 // indirect
 	golang.org/x/crypto v0.0.0-20190228161510-8dd112bcdc25 // indirect
-	golang.org/x/net v0.0.0-20190301231341-16b79f2e4e95 // indirect
 	golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421 // indirect
-	golang.org/x/sys v0.0.0-20190308023053-584f3b12f43e // indirect
 	google.golang.org/genproto v0.0.0-20190307195333-5fe7a883aa19 // indirect
 	gopkg.in/asn1-ber.v1 v1.0.0-20181015200546-f715ec2f112d // indirect
 	gopkg.in/gorethink/gorethink.v4 v4.1.0 // indirect
