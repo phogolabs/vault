@@ -81,6 +81,7 @@ require (
 	github.com/ory-am/common v0.4.0 // indirect
 	github.com/ory/dockertest v3.3.4+incompatible // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
+	github.com/phogolabs/cli v0.0.0-20190308161745-ce29833235a4
 	github.com/phogolabs/log v0.0.0-20190220082135-4206279275c1
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/pquerna/otp v1.1.0 // indirect
@@ -94,7 +95,6 @@ require (
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	golang.org/x/crypto v0.0.0-20190208162236-193df9c0f06f // indirect
 	golang.org/x/oauth2 v0.0.0-20190130055435-99b60b757ec1 // indirect
-	golang.org/x/sys v0.0.0-20190221075227-b4e8571b14e0 // indirect
 	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
 	google.golang.org/api v0.1.0 // indirect
 	google.golang.org/grpc v1.18.0 // indirect
@@ -102,7 +102,6 @@ require (
 	gopkg.in/gorethink/gorethink.v4 v4.1.0 // indirect
 	gopkg.in/ory-am/dockertest.v2 v2.2.3 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.2 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
 	k8s.io/api v0.0.0-20190216013246-4fc7e53fae8a // indirect
 	k8s.io/apimachinery v0.0.0-20190216013122-f05b8decd79c // indirect
 	k8s.io/klog v0.2.0 // indirect

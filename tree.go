@@ -24,7 +24,7 @@ type RepositoryTree struct {
 
 // Secret returns value from a tree
 func (r *RepositoryTree) Secret(path string) (map[string]interface{}, error) {
-	path = filepath.Join(split(path)...)
+	path = filepath.Join(splitBy(path, "/")...)
 	node, found := r.Root[path]
 
 	if !found {

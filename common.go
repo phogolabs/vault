@@ -7,10 +7,10 @@ import (
 	"github.com/hashicorp/vault/api"
 )
 
-func split(path string) []string {
+func splitBy(path, separator string) []string {
 	parts := []string{}
 
-	for _, part := range strings.Split(path, "/") {
+	for _, part := range strings.Split(path, separator) {
 		if part == "" {
 			continue
 		}
