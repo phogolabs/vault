@@ -1,0 +1,58 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-vault
+provisioner: csi-vault
+parameters:
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csi-vault
+  labels:
+    name: csi-vault
+spec:
+  accessModes:
+  - ReadOnlyMany
+  capacity:
+    storage: 100Gi
+  storageClassName: csi-vault
+  csi:
+    driver: csi-vault
+    volumeHandle: data-id
+    volumeAttributes: 
+      server: 127.0.0.1
+      share: /export
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csi-vault
+spec:
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: csi-vault
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx 
+spec:
+  containers:
+  - image: maersk/nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+      - mountPath: /var/run/secrets/vault
+        name: csi-vault
+  volumes:
+  - name: csi-vault
+    persistentVolumeClaim:
+      claimName: csi-vault 

@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.11.x
+  - 1.12.x
 
 install:
   - export PATH=$PATH:$HOME/gopath/bin
@@ -10,10 +10,12 @@ install:
   - go get github.com/mattn/goveralls
   - go install github.com/onsi/ginkgo/ginkgo
   - go mod download
+  - go mod vendor
   - go mod verify
 
 script:
   - ginkgo -r -v -covermode=atomic
+  - script/docker.sh
 
 after_success:
   - script/cover.sh
