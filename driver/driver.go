@@ -10,6 +10,7 @@ import (
 	"sync"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/kubernetes-csi/csi-lib-utils/protosanitizer"
 	"github.com/phogolabs/log"
 	"golang.org/x/net/context"
@@ -101,6 +102,9 @@ func parse(endpoint string) (*url.URL, error) {
 }
 
 func logger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	//TODO: remove
+	spew.Dump(req)
+
 	logger := log.WithFields(log.Fields{
 		"method":       info.FullMethod,
 		"request_body": protosanitizer.StripSecrets(req),
@@ -113,6 +117,9 @@ func logger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, ha
 		logger.WithError(err).Error("failed")
 	} else {
 		logger.WithField("response_body", protosanitizer.StripSecrets(resp)).Info("succeeded")
+
+		//TODO: remove
+		spew.Dump(resp)
 	}
 
 	return resp, err

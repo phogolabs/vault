@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: csi-vault
+  name: nginx-vault
   labels:
-    name: csi-vault
+    name: nginx-vault
 spec:
   accessModes:
   - ReadOnlyMany
@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: csi-vault
+  name: nginx-vault
 spec:
   accessModes:
   - ReadOnlyMany
@@ -28,7 +28,7 @@ spec:
     matchExpressions:
     - key: name
       operator: In
-      values: ["csi-vault"]
+      values: ["nginx-vault"]
   resources:
     requests:
       storage: 10Gi
@@ -47,8 +47,8 @@ spec:
       protocol: TCP
     volumeMounts:
       - mountPath: /var/run/secrets/vault
-        name: csi-vault
+        name: nginx-vault
   volumes:
-  - name: csi-vault
+  - name: nginx-vault
     persistentVolumeClaim:
-      claimName: csi-vault 
+      claimName: nginx-vault
