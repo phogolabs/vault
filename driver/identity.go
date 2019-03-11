@@ -2,6 +2,7 @@ package driver
 
 import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"golang.org/x/net/context"
 )
@@ -10,6 +11,8 @@ var _ csi.IdentityServer = &Driver{}
 
 // GetPluginInfo returns metadata of the plugin
 func (d *Driver) GetPluginInfo(ctx context.Context, req *csi.GetPluginInfoRequest) (*csi.GetPluginInfoResponse, error) {
+	spew.Dump(req)
+
 	return &csi.GetPluginInfoResponse{
 		Name:          name,
 		VendorVersion: version,
@@ -18,6 +21,8 @@ func (d *Driver) GetPluginInfo(ctx context.Context, req *csi.GetPluginInfoReques
 
 // GetPluginCapabilities returns available capabilities of the plugin
 func (d *Driver) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
+	spew.Dump(req)
+
 	return &csi.GetPluginCapabilitiesResponse{
 		Capabilities: []*csi.PluginCapability{
 			&csi.PluginCapability{
@@ -33,6 +38,8 @@ func (d *Driver) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCa
 
 // Probe returns the health and readiness of the plugin
 func (d *Driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeResponse, error) {
+	spew.Dump(req)
+
 	d.readyMu.Lock()
 	defer d.readyMu.Unlock()
 

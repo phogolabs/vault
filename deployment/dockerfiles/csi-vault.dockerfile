@@ -16,10 +16,6 @@ RUN go build -v -o /build/csi-vault $PACKAGE/cmd/csi-vault
 
 FROM alpine:3.5
 
-RUN apk --update upgrade
-RUN apk add --update ca-certificates
-RUN rm -rf /var/cache/apk/* /tmp/*
-RUN update-ca-certificates
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 RUN mkdir -p /app
 
