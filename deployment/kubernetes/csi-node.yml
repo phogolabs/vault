@@ -66,7 +66,7 @@ spec:
           hostPath:
             path: /var/lib/kubelet/pods
             type: Directory
-        - hostPath:
+        - name: registration-dir
+          hostPath:
             path: /var/lib/kubelet/plugins_registry
             type: Directory
-          name: registration-dir
