@@ -48,7 +48,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: VAULT_CSI_ENDPOINT
               value: unix:///plugin/csi.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /plugin
