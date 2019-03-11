@@ -40,19 +40,21 @@ func (ns *Driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) 
 // volume to a staging path. Once mounted, NodePublishVolume will make sure to
 // mount it to the appropriate path
 func (ns *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
-	spew.Dump(req)
-
-	return &csi.NodeStageVolumeResponse{}, nil
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodeUnstageVolume unstages the volume from the staging path
 func (ns *Driver) NodeUnstageVolume(ctx context.Context, req *csi.NodeUnstageVolumeRequest) (*csi.NodeUnstageVolumeResponse, error) {
-	return &csi.NodeUnstageVolumeResponse{}, nil
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (ns *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
 	//TODO:
+
+	targetPath := req.GetTargetPath()
+	spew.Dump("TARGET_PATH => " + targetPath)
+	spew.Dump(req.GetVolumeContext())
 
 	return &csi.NodePublishVolumeResponse{}, nil
 }
