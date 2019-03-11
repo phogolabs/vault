@@ -12,7 +12,6 @@ var _ csi.NodeServer = &Driver{}
 
 // NodeGetCapabilities returns the supported capabilities of the node server
 func (ns *Driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabilitiesRequest) (*csi.NodeGetCapabilitiesResponse, error) {
-	spew.Dump(req)
 	return &csi.NodeGetCapabilitiesResponse{
 		Capabilities: []*csi.NodeServiceCapability{
 			&csi.NodeServiceCapability{
@@ -31,7 +30,6 @@ func (ns *Driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapab
 // knows where to place the workload. The result of this function will be used
 // by the CO in ControllerPublishVolume.
 func (ns *Driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) (*csi.NodeGetInfoResponse, error) {
-	spew.Dump(req)
 	return &csi.NodeGetInfoResponse{
 		NodeId: ns.node,
 	}, nil
@@ -49,15 +47,11 @@ func (ns *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeR
 
 // NodeUnstageVolume unstages the volume from the staging path
 func (ns *Driver) NodeUnstageVolume(ctx context.Context, req *csi.NodeUnstageVolumeRequest) (*csi.NodeUnstageVolumeResponse, error) {
-	spew.Dump(req)
-
 	return &csi.NodeUnstageVolumeResponse{}, nil
 }
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (ns *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
-	spew.Dump(req)
-
 	//TODO:
 
 	return &csi.NodePublishVolumeResponse{}, nil
@@ -65,8 +59,6 @@ func (ns *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVol
 
 // NodeUnpublishVolume unmounts the volume from the target path
 func (ns *Driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublishVolumeRequest) (*csi.NodeUnpublishVolumeResponse, error) {
-	spew.Dump(req)
-
 	// TODO:
 
 	return &csi.NodeUnpublishVolumeResponse{}, nil
@@ -75,14 +67,10 @@ func (ns *Driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublis
 // NodeGetVolumeStats returns the volume capacity statistics available for the
 // the given volume.
 func (ns *Driver) NodeGetVolumeStats(ctx context.Context, in *csi.NodeGetVolumeStatsRequest) (*csi.NodeGetVolumeStatsResponse, error) {
-	spew.Dump(in)
-
 	return nil, status.Error(codes.Unimplemented, "")
 }
 
 // NodeExpandVolume expands the given volume
 func (ns *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolumeRequest) (*csi.NodeExpandVolumeResponse, error) {
-	spew.Dump(req)
-
 	return nil, status.Error(codes.Unimplemented, "")
 }
