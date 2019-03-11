@@ -71,7 +71,5 @@ func run(ctx *cli.Context) error {
 	node := ctx.String("node-id")
 
 	service := driver.New(node, endpoint)
-	service.Run()
-
-	return nil
+	return service.Run()
 }
