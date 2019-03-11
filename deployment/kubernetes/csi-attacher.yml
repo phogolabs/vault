@@ -1,0 +1,57 @@
+# This YAML file contains attacher & csi driver API objects that are necessary
+# to run external CSI attacher for vault
+kind: Service
+apiVersion: v1
+metadata:
+  name: csi-vault-attacher
+  labels:
+    app: csi-vault-attacher
+spec:
+  selector:
+    app: csi-vault-attacher
+  ports:
+    - name: dummy
+      port: 12345
+---
+kind: StatefulSet
+apiVersion: apps/v1beta1
+metadata:
+  name: csi-vault-attacher
+spec:
+  serviceName: "csi-attacher"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: csi-vault-attacher
+    spec:
+      serviceAccount: csi-vault-attacher
+      containers:
+        - name: csi-attacher
+          image: quay.io/k8scsi/csi-attacher:v1.0.1
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /plugin/csi.sock
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /plugin
+        - name: csi-vault
+          image: phogo/csi-vault:latest
+          env:
+            - name: VAULT_CSI_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: VAULT_CSI_ENDPOINT
+              value: unix:///plugin/csi.sock
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /plugin
+      volumes:
+        - name: socket-dir
+          emptyDir:

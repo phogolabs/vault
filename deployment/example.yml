@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-vault
+  labels:
+    name: nginx-vault
+spec:
+  accessModes:
+  - ReadOnlyMany
+  capacity:
+    storage: 100Gi
+  csi:
+    driver: csi-vault
+    volumeHandle: data-id
+    volumeAttributes: 
+      server: 127.0.0.1
+      share: /export
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-vault
+spec:
+  accessModes:
+  - ReadOnlyMany
+  selector:
+    matchExpressions:
+    - key: name
+      operator: In
+      values: ["nginx-vault"]
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx 
+spec:
+  containers:
+  - image: maersk/nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+      - mountPath: /var/run/secrets/vault
+        name: nginx-vault
+  volumes:
+  - name: nginx-vault
+    persistentVolumeClaim:
+      claimName: nginx-vault
