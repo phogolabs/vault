@@ -2,7 +2,7 @@
 
 [![Documentation][godoc-img]][godoc-url]
 ![License][license-img]
-[![Build Status][travis-img]][travis-url]
+[![Build Status][action-img]][action-url]
 [![Coverage][codecov-img]][codecov-url]
 [![Go Report Card][report-img]][report-url]
 
@@ -23,15 +23,15 @@ $ go get github.com/phogolabs/vault
 
 ## Contributing
 
-We are welcome to any contributions. Just fork the
+We are open for any contributions. Just fork the
 [project](https://github.com/phogolabs/vault).
 
-[travis-img]: https://travis-ci.org/phogolabs/vault.svg?branch=master
-[travis-url]: https://travis-ci.org/phogolabs/vault
 [report-img]: https://goreportcard.com/badge/github.com/phogolabs/vault
 [report-url]: https://goreportcard.com/report/github.com/phogolabs/vault
 [codecov-url]: https://codecov.io/gh/phogolabs/vault
 [codecov-img]: https://codecov.io/gh/phogolabs/vault/branch/master/graph/badge.svg
+[action-img]: https://github.com/phogolabs/vault/workflows/pipeline/badge.svg
+[action-url]: https://github.com/phogolabs/vault/actions
 [godoc-url]: https://godoc.org/github.com/phogolabs/vault
 [godoc-img]: https://godoc.org/github.com/phogolabs/vault?status.svg
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg
