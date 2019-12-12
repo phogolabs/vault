@@ -30,7 +30,7 @@ We are open for any contributions. Just fork the
 [report-url]: https://goreportcard.com/report/github.com/phogolabs/vault
 [codecov-url]: https://codecov.io/gh/phogolabs/vault
 [codecov-img]: https://codecov.io/gh/phogolabs/vault/branch/master/graph/badge.svg
-[action-img]: https://github.com/phogolabs/vault/workflows/pipeline/badge.svg
+[action-img]: https://github.com/phogolabs/vault/workflows/main/badge.svg
 [action-url]: https://github.com/phogolabs/vault/actions
 [godoc-url]: https://godoc.org/github.com/phogolabs/vault
 [godoc-img]: https://godoc.org/github.com/phogolabs/vault?status.svg

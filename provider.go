@@ -1,6 +1,8 @@
 package vault
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/vault/api"
 	"github.com/phogolabs/cli"
 )
@@ -32,7 +34,7 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 	for _, flag := range ctx.Command.Flags {
 		accessor := &cli.FlagAccessor{Flag: flag}
 
-		if path = accessor.MetaKey("vault_path"); path == "" {
+		if path, ok := accessor.Metadata()["vault_path"]; !ok || path == "" {
 			continue
 		}
 
@@ -41,7 +43,7 @@ func (m *Provider) Provide(ctx *cli.Context) (err error) {
 				return err
 			}
 
-			if err = accessor.SetValue(secret); err != nil {
+			if err = accessor.Set(fmt.Sprintf("%v", secret)); err != nil {
 				return err
 			}
 		}
