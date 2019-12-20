@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/vault/api v1.0.4
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/onsi/ginkgo v1.11.0
-	github.com/onsi/gomega v1.8.0
+	github.com/onsi/gomega v1.8.1
 	github.com/phogolabs/cli v0.0.0-20191212161310-ce689d871370
 	github.com/phogolabs/flaw v0.0.0-20191212161335-e4635a6903ee // indirect
 	github.com/phogolabs/log v0.0.0-20191212161426-e319be6fa33a
