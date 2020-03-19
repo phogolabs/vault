@@ -7,7 +7,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.6.4 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/vault/api v1.0.4
-	github.com/mitchellh/mapstructure v1.1.2
+	github.com/mitchellh/mapstructure v1.2.0
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
 	github.com/phogolabs/cli v0.0.0-20191212161310-ce689d871370
